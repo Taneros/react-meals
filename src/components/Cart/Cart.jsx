@@ -10,9 +10,13 @@ export const Cart = ({ onClose }) => {
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`
   const hasItems = cartCtx.items.length > 0
 
-  const cartItemRemoveHandler = (id) => {}
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id)
+  }
 
-  const cartItemAddHandler = (item) => {}
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem(item)
+  }
 
   const cartItems = (
     <ul className={styles['cart-items']}>
@@ -23,7 +27,7 @@ export const Cart = ({ onClose }) => {
           amount={item.amount}
           price={item.price}
           onRemove={cartItemRemoveHandler.bind(null, item.id)}
-          onAdd={cartItemAddHandler.bind(null, item)}
+          onAdd={cartItemAddHandler.bind(null, { ...item, amount: 1 })}
         />
       ))}
     </ul>
